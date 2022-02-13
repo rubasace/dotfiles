@@ -18,6 +18,7 @@ alias ls="${ls_command}"
 alias ll="${ls_command} -l"
 alias la="${ls_command} -a"
 alias lla="${ls_command} -la"
+alias lt="${ls_command} --tree"
 alias lsn='/bin/ls'
 
 
