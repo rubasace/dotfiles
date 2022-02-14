@@ -26,5 +26,19 @@ alias lt4="${ls_command} --tree --depth 4"
 alias lt5="${ls_command} --tree --depth 5"
 alias lsn='/bin/ls'
 
+alias mc="mvn clean"
+alias mcp="mvn clean package"
+alias mci="mvn clean install"
+
+msv() {
+	if [ -n "$1" ]
+    then
+    	generateBackupPoms=${2:-true}
+        mvn versions:set -DnewVersion="$1" -DgenerateBackupPoms="$generateBackupPoms"
+    else
+        echo "A version has to be passed as argument"
+    fi 
+}
+
 
 alias subl='open -a "/Applications/Sublime Text.app"'
