@@ -27,13 +27,24 @@ alias lt5="${ls_command} --tree --depth 5"
 alias lsn='/bin/ls'
 
 
-alias gitp='git push'
+alias gitp='git push origin'
+
 gitc() {
 	if [ -n "$1" ]
     then
     	git commit -m "$1"
     else
         echo "A commit message has to be passed as argument"
+    fi 
+}
+
+gittag(){
+	if [ -n "$1" ]
+    then
+    	tagMessage=${2:-"Release version $1"}
+    	git tag -a $1 -m "${tagMessage}"
+    else
+        echo "A tag identifier has to be passed as argument"
     fi 
 }
 
