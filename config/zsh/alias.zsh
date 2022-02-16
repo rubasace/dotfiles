@@ -12,7 +12,7 @@ alias kla='kubectl logs --tail 999999999999'
 alias klaf='kubectl logs --tail 999999999999 -f'
 alias ke='kubectl exec -it'
 
-ls_command=lsd
+ls_command="lsd --group-dirs=first"
 
 alias ls="${ls_command}"
 alias ll="${ls_command} -l"
@@ -30,7 +30,7 @@ alias mc="mvn clean"
 alias mcp="mvn clean package"
 alias mci="mvn clean install"
 
-msv() {
+msv() {	
 	if [ -n "$1" ]
     then
     	generateBackupPoms=${2:-true}
