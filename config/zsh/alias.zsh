@@ -26,6 +26,8 @@ alias lt4="${ls_command} --tree --depth 4"
 alias lt5="${ls_command} --tree --depth 5"
 alias lsn='/bin/ls'
 
+
+alias gitp='git push'
 gitc() {
 	if [ -n "$1" ]
     then
