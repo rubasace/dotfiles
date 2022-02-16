@@ -26,6 +26,15 @@ alias lt4="${ls_command} --tree --depth 4"
 alias lt5="${ls_command} --tree --depth 5"
 alias lsn='/bin/ls'
 
+gitc() {
+	if [ -n "$1" ]
+    then
+    	git commit -m "$1"
+    else
+        echo "A commit message has to be passed as argument"
+    fi 
+}
+
 alias mc="mvn clean"
 alias mcp="mvn clean package"
 alias mci="mvn clean install"
