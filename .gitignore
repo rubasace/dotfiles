@@ -1,0 +1,8 @@
+*
+
+!.gitignore
+!.install-macos.sh
+!install.sh
+!link.sh
+!config
+!config/**
