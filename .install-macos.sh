@@ -5,6 +5,7 @@ brew install kubectx
 brew install kubernetes-cli
 brew install lsd
 brew install kubectl
+brew install google-cloud-sdk
 
 brew tap sdkman/tap
 brew install sdkman-cli
