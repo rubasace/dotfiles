@@ -16,6 +16,10 @@ brew install google-cloud-sdk
 brew install maven
 brew install node
 brew install nvm
+brew install gpg
+brew install wget
+brew install jq
+brew install mas
 
 brew tap sdkman/tap
 brew install sdkman-cli
@@ -32,3 +36,14 @@ brew install --cask sublime-text
 brew install --cask parallels
 brew install --cask obsidian
 brew install --cask podman-desktop
+brew install --cask karabiner-elements
+brew install --cask gpg-suite
+brew install --cask postman
+brew install --cask skype
+brew install --cask postman
+brew install --cask bartender
+
+# Amphetamine
+mas install 937984704
+# Magnet
+#mas install 441258766
