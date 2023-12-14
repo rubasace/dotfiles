@@ -17,6 +17,6 @@ fi
 
 if [ "$(uname)" = "Darwin" ]; then
     ./.install-macos.sh
-else
-    echo "Not running on MacOS. Skipping install-macos.sh script."
 fi
+
+./link.sh
