@@ -1,7 +1,8 @@
 *
 
 !.gitignore
-!.install-macos.sh
+!.install-macos-personal.sh
+!.install-macos-work.sh
 !install.sh
 !link.sh
 !config
