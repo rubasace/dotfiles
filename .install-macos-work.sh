@@ -1,5 +1,7 @@
 echo "Installing Mac OS work packages..."
 
+set -e
+
 if ! which brew > /dev/null; then
     # Install Homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -38,3 +40,6 @@ brew install --cask obsidian
 brew install --cask podman-desktop
 brew install --cask gpg-suite
 brew install --cask postman
+
+
+echo "Done"

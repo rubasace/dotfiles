@@ -1,4 +1,5 @@
 # Check if powerlevel10k repository exists
+
 if [ ! -d "$HOME/powerlevel10k" ]; then
     echo "Cloning powerlevel10k repository..."
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
@@ -16,7 +17,7 @@ else
 fi
 
 if [ "$(uname)" = "Darwin" ]; then
-    ./configure-macos.sh
+    ./.configure-macos.sh
     ./.install-macos-work.sh
     ./.install-macos-personal.sh
 fi

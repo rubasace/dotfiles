@@ -12,3 +12,6 @@ brew install --cask microsoft-remote-desktop
 mas install 937984704
 # Magnet
 #mas install 441258766
+
+
+echo "Done"
