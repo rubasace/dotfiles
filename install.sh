@@ -16,6 +16,7 @@ else
 fi
 
 if [ "$(uname)" = "Darwin" ]; then
+    ./configure-macos.sh
     ./.install-macos-work.sh
     ./.install-macos-personal.sh
 fi
