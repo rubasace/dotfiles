@@ -9,6 +9,7 @@ else
     echo "Brew already installed"
 fi
 
+brew install watch
 brew install fzf
 brew install kubectx
 brew install kubernetes-cli
