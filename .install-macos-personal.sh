@@ -1,5 +1,6 @@
 echo "Installing Mac OS personal packages..."
 
+brew install kubeseal
 brew install mas
 
 brew install --cask karabiner-elements
