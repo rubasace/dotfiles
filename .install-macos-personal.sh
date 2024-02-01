@@ -9,6 +9,7 @@ brew install --cask skype
 brew install --cask bartender
 brew install --cask discord
 brew install --cask microsoft-remote-desktop
+brew install --cask autofirma
 
 # Amphetamine
 mas install 937984704
