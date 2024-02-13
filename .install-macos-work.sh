@@ -9,6 +9,9 @@ else
     echo "Brew already installed"
 fi
 
+# Compatibility with amd64
+softwareupdate --install-rosetta --agree-to-license
+
 brew install watch
 brew install fzf
 brew install kubectx
@@ -41,6 +44,7 @@ brew install --cask obsidian
 brew install --cask podman-desktop
 brew install --cask gpg-suite
 brew install --cask postman
+brew install --cask font-smoothing-adjuster
 
 
 echo "Done"
