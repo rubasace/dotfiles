@@ -25,6 +25,7 @@ brew install nvm
 brew install gpg
 brew install wget
 brew install jq
+brew install jmeter
 
 
 brew tap sdkman/tap
