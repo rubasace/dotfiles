@@ -46,6 +46,8 @@ brew install --cask podman-desktop
 brew install --cask gpg-suite
 brew install --cask postman
 brew install --cask font-smoothing-adjuster
+brew install --cask alt-tab
+brew install --cask keycastr
 
 
 echo "Done"
