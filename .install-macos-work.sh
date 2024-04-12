@@ -26,6 +26,7 @@ brew install gpg
 brew install wget
 brew install jq
 brew install jmeter
+brew install kustomize
 
 
 brew tap sdkman/tap
