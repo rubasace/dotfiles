@@ -27,6 +27,10 @@ brew install wget
 brew install jq
 brew install jmeter
 brew install kustomize
+brew install mrkai77/cask/loop
+
+
+
 
 
 brew tap sdkman/tap
