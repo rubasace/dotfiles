@@ -12,6 +12,7 @@ brew install --cask microsoft-remote-desktop
 brew install --cask autofirma
 brew install --cask spotify
 brew install --cask mqttx
+brew install --cask chatgpt
 
 # Amphetamine
 mas install 937984704
