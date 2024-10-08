@@ -12,6 +12,15 @@ alias kla='kubectl logs --tail 999999999999'
 alias klaf='kubectl logs --tail 999999999999 -f'
 alias ke='kubectl exec -it'
 
+kfin() {
+	if [ -n "$2" ]
+    then
+    	   k patch "$1" "$2" -p '{"metadata":{"finalizers":null}}' --type=merge
+    else
+        echo "A resource type and a resource name have to be passed as arguments"
+    fi
+}
+
 ls_command="lsd --group-dirs=first"
 
 alias ls="${ls_command}"
