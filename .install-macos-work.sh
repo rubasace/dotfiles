@@ -27,7 +27,7 @@ brew install wget
 brew install jq
 brew install jmeter
 brew install kustomize
-
+brew install cloud-sql-proxy
 
 
 
