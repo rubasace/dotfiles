@@ -9,6 +9,7 @@ brew install kubeseal
 brew install wireguard-tools
 brew install mas
 
+brew install --cask loop
 brew install --cask raycast
 brew install --cask karabiner-elements
 brew install --cask skype
