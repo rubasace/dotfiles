@@ -14,6 +14,7 @@ brew install --cask raycast
 brew install --cask karabiner-elements
 brew install --cask skype
 brew install --cask bartender
+brew install --cask adguard
 brew install --cask discord
 brew install --cask microsoft-remote-desktop
 brew install --cask autofirma
