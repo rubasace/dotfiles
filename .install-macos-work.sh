@@ -29,24 +29,16 @@ brew install jmeter
 brew install kustomize
 brew install cloud-sql-proxy
 
-
-
-
 brew tap sdkman/tap
 brew install sdkman-cli
 
-brew tap homebrew/cask-fonts
 brew install --cask font-meslo-lg-nerd-font
 
 brew install --cask iterm2
-brew install --cask google-chrome
 brew install --cask jetbrains-toolbox
 brew install --cask raycast
-brew install --cask slack
 brew install --cask sublime-text
-brew install --cask parallels
 brew install --cask obsidian
-brew install --cask podman-desktop
 brew install --cask gpg-suite
 brew install --cask postman
 brew install --cask font-smoothing-adjuster
