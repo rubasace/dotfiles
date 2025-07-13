@@ -21,6 +21,7 @@ brew install --cask autofirma
 brew install --cask spotify
 brew install --cask mqttx
 brew install --cask chatgpt
+brew install --cask logi-options+
 
 # Amphetamine
 mas install 937984704
