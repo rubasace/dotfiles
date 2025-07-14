@@ -22,6 +22,7 @@ brew install --cask spotify
 brew install --cask mqttx
 brew install --cask chatgpt
 brew install --cask logi-options+
+brew install --cask jordanbaird-ice
 
 # Amphetamine
 mas install 937984704
