@@ -28,6 +28,7 @@ brew install jq
 brew install jmeter
 brew install kustomize
 brew install cloud-sql-proxy
+brew install pyenv
 
 brew tap sdkman/tap
 brew install sdkman-cli
