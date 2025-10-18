@@ -29,6 +29,8 @@ brew install jmeter
 brew install kustomize
 brew install cloud-sql-proxy
 brew install pyenv
+brew install sops
+brew install age
 
 brew tap sdkman/tap
 brew install sdkman-cli
