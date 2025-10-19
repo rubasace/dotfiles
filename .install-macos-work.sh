@@ -29,6 +29,7 @@ brew install jmeter
 brew install kustomize
 brew install cloud-sql-proxy
 brew install pyenv
+brew install 7-zip
 brew install sops
 brew install age
 
