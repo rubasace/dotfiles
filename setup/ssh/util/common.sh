@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SSH_DIR="$HOME/.ssh"
+CURRENT_USER="${USER:-$(whoami)}"
+USER_HOME="/Users/$CURRENT_USER"
+SSH_DIR="$USER_HOME/.ssh"
 
 ensure_ssh_dir() {
   mkdir -p "$SSH_DIR"
@@ -19,3 +21,8 @@ info() {
 warn() {
   echo "⚠️  $1"
 }
+
+success() {
+  echo "✅ $1"
+}
+

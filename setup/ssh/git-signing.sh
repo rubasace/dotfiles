@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$(dirname "$0")/../common.sh"
+source "$(dirname "$0")/util/common.sh"
 
-SIGN_KEY="$HOME/.ssh/id_ed25519_git_signing"
+ensure_ssh_dir
+
+SIGN_KEY="$SSH_DIR/id_ed25519_git_signing"
 
 info "Setting up Git commit signing (SSH)"
 

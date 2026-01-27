@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SSH_DIR="$HOME/.ssh"
+source "$(dirname "$0")/util/common.sh"
+
 CONF_DIR="$SSH_DIR/config.d"
 ROOT_CONFIG="$SSH_DIR/config"
 
-echo "🔐 Initializing SSH base configuration"
+info "Initializing SSH base configuration"
 
 # Ensure directories
 mkdir -p "$CONF_DIR"
@@ -23,4 +24,4 @@ EOF
 
 chmod 600 "$ROOT_CONFIG"
 
-echo "✅ Base SSH config ready"
+success "Base SSH config ready"

@@ -10,8 +10,8 @@ echo "🔐 SSH setup starting..."
 "$SCRIPT_DIR/github.sh"
 "$SCRIPT_DIR/gitlab.sh"
 "$SCRIPT_DIR/homelab.sh"
+"$SCRIPT_DIR/git-signing.sh"
+"$SCRIPT_DIR/startup-load.sh"
 
-# Fix ownership
-chown -R rubenpahino:staff ~/.ssh
 
 echo "✅ SSH setup complete"

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$(dirname "$0")/../common.sh"
+source "$(dirname "$0")/util/common.sh"
+
+ensure_ssh_dir
 
 AUTH_KEY="$SSH_DIR/id_ed25519_github"
 CONF_FILE="$SSH_DIR/config.d/10-github.conf"

@@ -16,6 +16,5 @@ run_if_exists() {
 }
 
 run_if_exists "$ROOT_DIR/ssh/setup.sh"
-run_if_exists "$ROOT_DIR/git/setup.sh"
 
 echo "✅ Device setup complete"
