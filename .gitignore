@@ -8,3 +8,5 @@
 !link.sh
 !config
 !config/**
+!setup
+!setup/**
