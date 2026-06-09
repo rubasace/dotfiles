@@ -23,6 +23,10 @@ brew install --cask mqttx
 brew install --cask chatgpt
 brew install --cask logi-options+
 brew install --cask jordanbaird-ice
+brew install --cask android-studio
+brew install --cask http-toolkit
+brew install --cask mitmproxy
+brew install --cask opencode-desktop
 
 # Amphetamine
 mas install 937984704
