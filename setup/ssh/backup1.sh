@@ -26,8 +26,8 @@ info "Writing Backup1 SSH config"
 
 cat > "$CONF_FILE" <<'EOF'
 Host backup1
-  HostName 192.168.105.175
-  User rubenpahino
+  HostName backup1.tailnet.nasvigo.com
+  User ruben
   IdentityFile ~/.ssh/id_ed25519_backup1
   IdentitiesOnly yes
 EOF
