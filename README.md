@@ -1,0 +1,79 @@
+# dotfiles (AI generated temporarily)
+
+Full machine configuration as code. Goal: restoring a Mac from zero is
+`clone + ./install.sh`, and any later change to this repo propagates to the
+machine automatically.
+
+## Fresh machine bootstrap
+
+```bash
+xcode-select --install   # if git is not available yet
+git clone https://github.com/rubasace/dotfiles.git ~/workspace/personal/dotfiles
+cd ~/workspace/personal/dotfiles
+./install.sh
+```
+
+`install.sh` is idempotent: it installs Homebrew, everything in the `Brewfile`
+(adopting apps that were installed manually), npm globals, links all configs,
+applies macOS defaults, generates SSH keys per provider, and registers the
+launchd agents. After it finishes, add the printed SSH public keys to
+GitHub/GitLab/servers and sign into the App Store for `mas` apps.
+
+## Layout
+
+| Path | Purpose |
+|---|---|
+| `Brewfile` | Single source of truth for brew formulae, casks and App Store apps |
+| `Brewfile.sudo` | Casks needing a privileged installer; only installed interactively by `install.sh` |
+| `config/` | Files linked into `$HOME` (top-level files) and `~/.config/` (directories) |
+| `config/iterm2/` | iTerm2 settings; the app reads/writes them here directly |
+| `macos/defaults.sh` | macOS settings applied via `defaults write` |
+| `setup/ssh/` | SSH key generation (one auth key per provider + one git signing key) |
+| `scripts/` | Sync and maintenance scripts used by the launchd agents |
+| `agents/` | launchd agent templates + installer |
+
+## What runs automatically
+
+- **`com.rubasace.dotfiles-sync`** (on login + every 6h): pulls this repo
+  (fast-forward only, skipped if dirty), relinks configs, and installs any
+  packages added to the `Brewfile`. Manual run: `dotsync`.
+- **`com.rubasace.brew-maintenance`** (every 12h): `brew update` + upgrades
+  formulae and casks, then cleanup. It never asks for a password: casks whose
+  upgrade needs root (obs, parallels, ...) are skipped and picked up whenever
+  you run `brewup` interactively.
+- **`local.addssh`** (on login + hourly): loads SSH keys into the agent from
+  the Keychain.
+
+Logs: `~/Library/Logs/dotfiles-sync.log` and `~/Library/Logs/brew-maintenance.log`.
+
+## Git identity and signing
+
+`~/.gitconfig` is managed by this repo (`config/.gitconfig`): identity, SSH
+commit signing with the dedicated `id_ed25519_git_signing` key, and signature
+verification via `~/.config/git/allowed_signers`. One signing key is used for
+all providers on purpose — upload the same public key to GitHub and GitLab as
+a *signing* key; auth keys stay one-per-provider.
+
+## What stays manual (by design or necessity)
+
+- App Store / iCloud sign-in, TCC permissions (screen recording, accessibility...),
+  and app licenses.
+- Licensed audio/video suites: Ableton Live, Cubase + Steinberg tooling, iZotope,
+  DaVinci Resolve (cask no longer exists).
+- Poker stack (PokerStars, GGPoker, Winamax, PokerTracker, Hand2Note...),
+  Ledger Live, Configurador FNMT, CEmu (TI calculator emulator), Wii U / retro tooling.
+- Casks whose installer needs root (docker-desktop, private-internet-access,
+  sf-symbols) install fine from an interactive `./install.sh` (terminal sudo
+  prompt) but are skipped by the background sync agent.
+- `scripts/cleanup-legacy.sh` removes packages that predate the Brewfile
+  (duplicates, dead apps). Review and run it once per already-provisioned machine.
+
+## Why not Nix?
+
+Considered (Jan 2026 state): nix-darwin + home-manager gives atomic
+rollbacks and typed config, but costs a steep learning curve, a yearly
+breakage when macOS majors land, and GUI apps end up in Homebrew casks anyway.
+This repo already covers ~90% of the declarative goal with none of that
+maintenance. Determinate Nix stays installed for per-project dev shells; if
+the itch ever wins, the canonical migration is nix-darwin (release branch) +
+home-manager + its `homebrew` module with `onActivation.cleanup = "zap"`.

@@ -1,11 +1,14 @@
 alias reload='source ~/.zshrc'
 
+alias dotsync='"$DOTFILES_DIR/scripts/dotfiles-sync.sh"'
+# Interactive full upgrade, including casks that need an admin password
+alias brewup='brew update && brew upgrade && brew cleanup'
+
 # Workaround to be able to watch when executing aliases, like `watch k get po`
 alias watch='watch '
 
 alias k=kubectl
-compdef __start_kubectl k
-source <(kubectl completion zsh)
+compdef k=kubectl
 alias kl='kubectl logs'
 alias klf='kubectl logs -f'
 alias kla='kubectl logs --tail 999999999999'

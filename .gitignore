@@ -1,12 +1,21 @@
 *
 
-!.configure-macos.sh
 !.gitignore
-!.install-macos-personal.sh
-!.install-macos-work.sh
+!README.md
+!Brewfile
+!Brewfile.sudo
 !install.sh
 !link.sh
 !config
 !config/**
 !setup
 !setup/**
+!scripts
+!scripts/**
+!agents
+!agents/**
+!macos
+!macos/**
+
+# Finder junk would slip through the config/** whitelist
+.DS_Store

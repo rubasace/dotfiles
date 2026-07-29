@@ -22,10 +22,13 @@ else
   warn "Git signing key already exists, skipping"
 fi
 
-info "Configuring Git to use SSH-based commit signing"
+# Signing itself is configured in config/.gitconfig (linked to ~/.gitconfig);
+# here we only register the public key so signatures verify locally too.
+info "Registering signing key in allowed_signers"
 
-git config --global gpg.format ssh
-git config --global user.signingkey "$SIGN_KEY"
-git config --global commit.gpgsign true
+SIGNERS_FILE="$USER_HOME/.config/git/allowed_signers"
+mkdir -p "$(dirname "$SIGNERS_FILE")"
+SIGNER_LINE="ruben.pahino.verdugo@gmail.com $(cut -d' ' -f1,2 "$SIGN_KEY.pub")"
+grep -qxF "$SIGNER_LINE" "$SIGNERS_FILE" 2>/dev/null || echo "$SIGNER_LINE" >> "$SIGNERS_FILE"
 
 

@@ -1,25 +1,64 @@
-# Check if powerlevel10k repository exists
+#!/usr/bin/env bash
+set -euo pipefail
 
-if [ ! -d "$HOME/powerlevel10k" ]; then
-    echo "Cloning powerlevel10k repository..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-else
-    echo "powerlevel10k repository already exists. Skipping clone."
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "🚀 Bootstrapping machine from dotfiles"
+
+if [[ "$(uname)" != "Darwin" ]]; then
+  echo "This setup only supports macOS" >&2
+  exit 1
 fi
 
-# Check if zsh-syntax-highlighting repository exists
-if [ ! -d "$HOME/zsh-plugins/zsh-syntax-highlighting" ]; then
-    echo "Cloning zsh-syntax-highlighting repository..."
-    mkdir -p $HOME/zsh-plugins
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/zsh-plugins/zsh-syntax-highlighting
-else
-    echo "zsh-syntax-highlighting repository already exists. Skipping clone."
+if [[ ! -x /opt/homebrew/bin/brew ]]; then
+  echo "▶ Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Compatibility with amd64-only apps
+softwareupdate --install-rosetta --agree-to-license 2>/dev/null || true
+
+echo "▶ Installing packages from Brewfile"
+# Brew >= 6 refuses formulae from third-party taps unless explicitly trusted
+for tap in sdkman/tap grishka/grishka; do
+  brew tap "$tap" 2>/dev/null || true
+  brew trust "$tap" 2>/dev/null || true
+done
+HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile" --no-upgrade
+
+# Casks with privileged install steps; safe here because this run is
+# interactive and sudo can prompt in the terminal
+HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile.sudo" --no-upgrade
+
+echo "▶ Installing npm globals"
+for pkg in @anthropic-ai/claude-code @openai/codex; do
+  npm ls -g "$pkg" >/dev/null 2>&1 || npm install -g "$pkg"
+done
+
+"$DOTFILES_DIR/link.sh"
+"$DOTFILES_DIR/macos/defaults.sh"
+"$DOTFILES_DIR/setup/setup.sh"
+"$DOTFILES_DIR/agents/install-agents.sh"
+
+# --- Migrations away from the legacy setup ---
+
+OLD_AUTOUPDATE_PLIST="$HOME/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist"
+if [[ -f "$OLD_AUTOUPDATE_PLIST" ]]; then
+  echo "▶ Removing homebrew-autoupdate (replaced by the brew-maintenance agent)"
+  launchctl bootout "gui/$(id -u)/com.github.domt4.homebrew-autoupdate" 2>/dev/null || true
+  rm -f "$OLD_AUTOUPDATE_PLIST"
+  rm -rf "$HOME/Library/Application Support/com.github.domt4.homebrew-autoupdate"
+  brew untap domt4/autoupdate 2>/dev/null || true
 fi
 
-if [ "$(uname)" = "Darwin" ]; then
-    ./.configure-macos.sh
-    ./.install-macos-work.sh
-    ./.install-macos-personal.sh
+if brew list powerlevel10k >/dev/null 2>&1 && [[ -d "$HOME/powerlevel10k" ]]; then
+  echo "▶ Removing legacy powerlevel10k clone (now installed via brew)"
+  rm -rf "$HOME/powerlevel10k"
+fi
+if brew list zsh-syntax-highlighting >/dev/null 2>&1 && [[ -d "$HOME/zsh-plugins" ]]; then
+  echo "▶ Removing legacy zsh-plugins clones (now installed via brew)"
+  rm -rf "$HOME/zsh-plugins"
 fi
 
-./link.sh
+echo "✅ Done — open a new terminal session"

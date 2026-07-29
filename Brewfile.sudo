@@ -1,0 +1,9 @@
+# Casks whose install/upgrade runs a privileged step (root symlinks, pkg
+# installers, system extensions). They MUST be installed from an interactive
+# terminal so sudo can prompt: only install.sh uses this file — the background
+# sync agent never touches it, because a failed unattended install rolls the
+# app back and can leave it deleted.
+
+cask "docker-desktop"
+cask "private-internet-access"
+cask "sf-symbols"
