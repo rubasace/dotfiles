@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # One-off cleanup of packages that predate the Brewfile. Review before running:
-# every line here uninstalls something that is currently on the machine but is
-# duplicated, dead, or replaced by an entry in the Brewfile.
+# every line here uninstalls something that is duplicated, dead, or replaced by
+# an entry in the Brewfile. Type flags are mandatory: brew resolves bare names
+# through cask renames and prefers casks, so `brew uninstall docker` can hit
+# the docker-desktop CASK instead of the formula.
 set -uo pipefail
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -12,9 +14,6 @@ brew uninstall --cask skype
 echo "▶ Bartender was replaced by Ice (jordanbaird-ice)"
 brew uninstall --cask bartender
 
-echo "▶ google-cloud-sdk cask is the old name of gcloud-cli (both are installed)"
-brew uninstall --cask google-cloud-sdk
-
 echo "▶ Mounty is abandoned; MountMate covers NTFS mounting"
 brew uninstall --cask mounty
 
@@ -22,23 +21,23 @@ echo "▶ microsoft-remote-desktop was renamed windows-app"
 brew uninstall --cask microsoft-remote-desktop
 
 echo "▶ docker formula (CLI only) is redundant with Docker Desktop's bundled CLI"
-brew uninstall docker
+brew uninstall --formula docker
 
 echo "▶ syncthing formula + service is redundant with the Syncthing.app cask"
 brew services stop syncthing
-brew uninstall syncthing
+brew uninstall --formula syncthing
 
 echo "▶ nvm was never used (no node versions installed); node comes from brew"
-brew uninstall nvm
+brew uninstall --formula nvm
 
 echo "▶ rustup was never initialized; the rust formula is the one in use"
-brew uninstall rustup
+brew uninstall --formula rustup
 
 echo "▶ 'cask' formula (an Emacs tool) looks like an accidental install; drags emacs in"
-brew uninstall cask
+brew uninstall --formula cask
 
 echo "▶ pinentry-mac only served the old autoupdate sudo popup"
-brew uninstall pinentry-mac
+brew uninstall --formula pinentry-mac
 
 echo "▶ Removing orphaned dependencies"
 brew autoremove
