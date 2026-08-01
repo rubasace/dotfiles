@@ -15,8 +15,10 @@ if [[ -z "$PROFILE" ]]; then
   if [[ -f "$PROFILE_MARKER" ]]; then
     PROFILE="$(cat "$PROFILE_MARKER")"
   elif [[ -t 0 ]]; then
-    read -r -p "Machine profile [personal/work] (default: personal): " PROFILE
-    PROFILE="${PROFILE:-personal}"
+    echo "Machine profile:"
+    select PROFILE in personal work; do
+      [[ -n "$PROFILE" ]] && break
+    done
   else
     PROFILE="personal"
   fi
