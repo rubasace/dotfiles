@@ -10,6 +10,20 @@ if [[ "$(uname)" != "Darwin" ]]; then
   exit 1
 fi
 
+# Ask for the admin password once and keep the sudo timestamp warm for the
+# whole run (it expires after ~5 min by default, causing repeated prompts
+# during long installs). Interactive runs only.
+if [[ -t 0 ]]; then
+  sudo -v
+  while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" 2>/dev/null || exit
+  done &
+  SUDO_KEEPALIVE_PID=$!
+  trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
+fi
+
 if [[ ! -x /opt/homebrew/bin/brew ]]; then
   echo "▶ Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
