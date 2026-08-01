@@ -1,6 +1,8 @@
 alias reload='source ~/.zshrc'
 
 alias dotsync='"$DOTFILES_DIR/scripts/dotfiles-sync.sh"'
+# The Tailscale cask ships the CLI inside the app bundle only
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 # Interactive full upgrade, including casks that need an admin password
 alias brewup='brew update && brew upgrade && brew cleanup'
 
