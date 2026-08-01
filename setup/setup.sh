@@ -15,7 +15,9 @@ run_if_exists() {
   fi
 }
 
-run_if_exists "$ROOT_DIR/ssh/setup.sh"
-run_if_exists "$ROOT_DIR/sops/setup.sh"
+# Every subsystem with a setup.sh gets picked up automatically
+for setup_script in "$ROOT_DIR"/*/setup.sh; do
+  run_if_exists "$setup_script"
+done
 
 echo "✅ Device setup complete"

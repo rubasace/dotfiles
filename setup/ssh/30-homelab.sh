@@ -9,7 +9,9 @@ CONF_FILE="$SSH_DIR/config.d/90-homelab.conf"
 
 info "Setting up homelab SSH key (one key per machine for all homelab hosts)"
 
-if ! key_exists "$KEY"; then
+if key_exists "$KEY"; then
+  warn "Homelab SSH key already exists, skipping"
+elif can_create_keys; then
   info "Creating homelab SSH key"
   ssh-keygen -t ed25519 -f "$KEY" -C "ruben@homelab"
   info "Adding homelab SSH key to agent with Keychain"
@@ -18,8 +20,6 @@ if ! key_exists "$KEY"; then
   info "Homelab SSH public key (register in every homelab host's users.nix):"
   cat "$KEY.pub"
   echo ""
-else
-  warn "Homelab SSH key already exists, skipping"
 fi
 
 info "Writing homelab SSH config"

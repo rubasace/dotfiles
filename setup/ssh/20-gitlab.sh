@@ -9,7 +9,9 @@ CONF_FILE="$SSH_DIR/config.d/20-gitlab.conf"
 
 info "Setting up GitLab SSH keys"
 
-if ! key_exists "$AUTH_KEY"; then
+if key_exists "$AUTH_KEY"; then
+  warn "GitLab SSH auth key already exists, skipping"
+elif can_create_keys; then
   info "Creating GitLab SSH auth key"
   ssh-keygen -t ed25519 -f "$AUTH_KEY" -C "ruben@gitlab"
   info "Adding GitLab SSH key to agent with Keychain"
@@ -18,8 +20,6 @@ if ! key_exists "$AUTH_KEY"; then
   info "GitLab SSH public key (add to GitLab):"
   cat "$AUTH_KEY.pub"
   echo ""
-else
-  warn "GitLab SSH auth key already exists, skipping"
 fi
 
 info "Writing GitLab SSH config"
