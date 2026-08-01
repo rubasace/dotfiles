@@ -27,6 +27,7 @@ SSH_DIR="$SSH_DIR"
 KEYS=(
   "\$SSH_DIR/id_ed25519_github"
   "\$SSH_DIR/id_ed25519_gitlab"
+  "\$SSH_DIR/id_ed25519_homelab"
   "\$SSH_DIR/id_ed25519_hl15"
   "\$SSH_DIR/id_ed25519_backup1"
   "\$SSH_DIR/id_ed25519_git_signing"
