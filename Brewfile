@@ -99,7 +99,6 @@ cask "syncthing-app"
 cask "tailscale-app"
 
 # --- Media / entertainment ---
-cask "amazon-luna"
 cask "battle-net"
 cask "jdownloader"
 cask "moonlight"
