@@ -24,14 +24,16 @@ fi
 
 info "Writing homelab SSH config"
 
+# Aliases, FQDNs and IPs all match the blocks, so the right user and key
+# apply no matter how the host is written on the command line
 cat > "$CONF_FILE" <<'EOF'
-Host hl15
+Host hl15 192.168.10.1
   HostName 192.168.10.1
   User rubenpahino
   IdentityFile ~/.ssh/id_ed25519_homelab
   IdentitiesOnly yes
 
-Host backup1
+Host backup1 backup1.tailnet.nasvigo.com
   HostName backup1.tailnet.nasvigo.com
   User ruben
   IdentityFile ~/.ssh/id_ed25519_homelab
