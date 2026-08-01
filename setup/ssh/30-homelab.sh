@@ -24,24 +24,18 @@ fi
 
 info "Writing homelab SSH config"
 
-# Legacy per-host keys act as fallbacks until every server knows the new key
-legacy_hl15=""
-legacy_backup1=""
-[[ -f "$SSH_DIR/id_ed25519_hl15" ]] && legacy_hl15="  IdentityFile ~/.ssh/id_ed25519_hl15"$'\n'
-[[ -f "$SSH_DIR/id_ed25519_backup1" ]] && legacy_backup1="  IdentityFile ~/.ssh/id_ed25519_backup1"$'\n'
-
-cat > "$CONF_FILE" <<EOF
+cat > "$CONF_FILE" <<'EOF'
 Host hl15
   HostName 192.168.10.1
   User rubenpahino
   IdentityFile ~/.ssh/id_ed25519_homelab
-${legacy_hl15}  IdentitiesOnly yes
+  IdentitiesOnly yes
 
 Host backup1
   HostName backup1.tailnet.nasvigo.com
   User ruben
   IdentityFile ~/.ssh/id_ed25519_homelab
-${legacy_backup1}  IdentitiesOnly yes
+  IdentitiesOnly yes
 EOF
 
 chmod 600 "$CONF_FILE"
