@@ -19,3 +19,6 @@
 
 # Finder junk would slip through the config/** whitelist
 .DS_Store
+
+# iTerm2 runtime symlink next to its repo-managed prefs
+config/iterm2/AppSupport
