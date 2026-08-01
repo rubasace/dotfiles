@@ -2,8 +2,7 @@
 
 !.gitignore
 !README.md
-!Brewfile
-!Brewfile.sudo
+!Brewfile*
 !install.sh
 !link.sh
 !config

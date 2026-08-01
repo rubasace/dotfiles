@@ -1,0 +1,5 @@
+# Personal-profile casks with privileged installers (see Brewfile.sudo for
+# why these are interactive-only).
+
+cask "private-internet-access"
+cask "sf-symbols"

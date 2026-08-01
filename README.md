@@ -13,18 +13,27 @@ cd ~/workspace/personal/dotfiles
 ./install.sh
 ```
 
-`install.sh` is idempotent: it installs Homebrew, everything in the `Brewfile`
+`install.sh` is idempotent: it installs Homebrew, everything in the Brewfiles
 (adopting apps that were installed manually), npm globals, links all configs,
 applies macOS defaults, generates SSH keys per provider, and registers the
 launchd agents. After it finishes, add the printed SSH public keys to
 GitHub/GitLab/servers and sign into the App Store for `mas` apps.
 
+## Machine profiles
+
+Every machine is either `personal` (everything) or `work` (base Brewfiles
+only; no SSH keys, no personal gitconfig — configure the company git identity
+by hand and run individual `setup/ssh/*.sh` scripts as needed). The choice is
+asked once by `install.sh` (or passed as `./install.sh --profile=work`) and
+remembered in `~/.dotfiles-profile`, which the sync agent honours too.
+
 ## Layout
 
 | Path | Purpose |
 |---|---|
-| `Brewfile` | Single source of truth for brew formulae, casks and App Store apps |
-| `Brewfile.sudo` | Casks needing a privileged installer; only installed interactively by `install.sh` |
+| `Brewfile` | Base profile: formulae/casks for every machine, work included |
+| `Brewfile.personal` | Personal overlay: homelab, media, licensed and account-tied apps |
+| `Brewfile.sudo`, `Brewfile.personal.sudo` | Casks needing a privileged installer; only installed interactively by `install.sh` |
 | `config/` | Files linked into `$HOME` (top-level files) and `~/.config/` (directories) |
 | `config/iterm2/` | iTerm2 settings; the app reads/writes them here directly |
 | `macos/defaults.sh` | macOS settings applied via `defaults write` |

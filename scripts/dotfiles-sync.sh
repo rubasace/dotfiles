@@ -30,10 +30,14 @@ fi
 
 ./link.sh
 
+PROFILE="$(cat "$HOME/.dotfiles-profile" 2>/dev/null || echo personal)"
+brewfiles=(Brewfile)
+[[ "$PROFILE" == "personal" ]] && brewfiles+=(Brewfile.personal)
+
 # mas entries are excluded: mas can't detect installed apps while Spotlight
 # indexing is disabled, so it would retry (and fail) on every run. App Store
 # apps are only handled by the interactive install.sh run.
-brewfile_no_mas="$(grep -v '^mas ' Brewfile)"
+brewfile_no_mas="$(cat "${brewfiles[@]}" | grep -v '^mas ')"
 
 if ! echo "$brewfile_no_mas" | brew bundle check --file=- >/dev/null 2>&1; then
   log "installing missing packages from Brewfile"
