@@ -59,7 +59,10 @@ brew "tesseract-lang"
 cask "font-meslo-lg-nerd-font"
 
 # --- Terminal / dev apps ---
-cask "android-platform-tools"
+# android-platform-tools: disabled 2026-08 — upstream checksum mismatch
+# (Google republished the zip). Re-enable when the cask is fixed; meanwhile
+# adb ships with Android Studio's SDK.
+# cask "android-platform-tools"
 cask "android-studio"
 cask "chatgpt"
 cask "claude"

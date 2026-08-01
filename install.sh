@@ -25,16 +25,24 @@ for tap in sdkman/tap grishka/grishka; do
   brew tap "$tap" 2>/dev/null || true
   brew trust "$tap" 2>/dev/null || true
 done
-HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile" --no-upgrade
+# A single broken cask must not abort the whole bootstrap: report and go on,
+# the dotfiles-sync agent retries missing packages later anyway
+HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile" --no-upgrade \
+  || echo "⚠️  Some Brewfile entries failed — check output above; sync will retry"
 
 # Casks with privileged install steps; safe here because this run is
 # interactive and sudo can prompt in the terminal
-HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile.sudo" --no-upgrade
+HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file "$DOTFILES_DIR/Brewfile.sudo" --no-upgrade \
+  || echo "⚠️  Some Brewfile.sudo entries failed — check output above"
 
 echo "▶ Installing npm globals"
-for pkg in @anthropic-ai/claude-code @openai/codex; do
-  npm ls -g "$pkg" >/dev/null 2>&1 || npm install -g "$pkg"
-done
+if command -v npm >/dev/null 2>&1; then
+  for pkg in @anthropic-ai/claude-code @openai/codex; do
+    npm ls -g "$pkg" >/dev/null 2>&1 || npm install -g "$pkg"
+  done
+else
+  echo "⚠️  npm not available (node install failed?); skipping npm globals"
+fi
 
 "$DOTFILES_DIR/link.sh"
 "$DOTFILES_DIR/macos/defaults.sh"
