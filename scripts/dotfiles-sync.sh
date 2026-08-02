@@ -30,6 +30,9 @@ fi
 
 ./link.sh
 
+# Idempotent and prompt-free on personal; on work it only warns if missing
+./setup/git/setup.sh
+
 PROFILE="$(cat "$HOME/.dotfiles-profile" 2>/dev/null || echo personal)"
 brewfiles=(Brewfile)
 [[ "$PROFILE" == "personal" ]] && brewfiles+=(Brewfile.personal)

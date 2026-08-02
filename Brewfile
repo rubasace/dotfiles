@@ -17,39 +17,37 @@ brew "yq"
 
 # --- Dev toolchains ---
 brew "gh"
-brew "gnupg"
 brew "maven"
 brew "node"
 brew "pyenv"
-brew "python@3.13"
-brew "rust"
 brew "sdkman-cli"
 
 # --- Kubernetes / infra ---
-brew "age"
 brew "helm"
 brew "kubectx"
 brew "kubernetes-cli"
 brew "kustomize"
-brew "sops"
 
 # --- CLI utilities ---
-brew "pandoc"
-brew "qpdf"
-brew "sevenzip"
+brew "mas"
 
 # --- Fonts ---
 cask "font-meslo-lg-nerd-font"
 
 # --- Desktop ---
-cask "alt-tab"
-cask "firefox"
-cask "fontsmoothingadjuster"
+cask "betterdisplay"
 cask "google-chrome"
 cask "iterm2"
 cask "jetbrains-toolbox"
+cask "karabiner-elements"
 cask "keycastr"
+cask "loop"
 cask "obsidian"
 cask "postman"
 cask "raycast"
+cask "spotify"
 cask "sublime-text"
+cask "wispr-flow"
+
+# --- Mac App Store ---
+mas "Amphetamine", id: 937984704

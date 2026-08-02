@@ -4,10 +4,12 @@
 tap "grishka/grishka" # neardrop
 
 # --- Homelab / infra ---
+brew "age"
 brew "cloud-sql-proxy"
 brew "drone-cli"
 brew "kubeseal"
 brew "opentofu"
+brew "sops"
 brew "talhelper"
 brew "velero"
 brew "wireguard-tools"
@@ -17,11 +19,9 @@ cask "tigervnc"
 # --- CLI utilities ---
 brew "adb-enhanced"
 brew "ffuf"
-brew "jmeter"
-brew "mas"
+brew "gnupg" # Maven Central artifact signing (OSS releases)
 brew "mat2"
 brew "nmap"
-brew "poppler-qt5"
 brew "squashfs"
 brew "tesseract-lang"
 
@@ -39,15 +39,9 @@ cask "mqttx"
 cask "ngrok"
 cask "ollama-app"
 cask "opencode-desktop"
-cask "utm"
 
 # --- Desktop environment ---
-cask "betterdisplay"
-cask "cleanshot"
-cask "jordanbaird-ice"
-cask "karabiner-elements"
 cask "logi-options+"
-cask "loop"
 cask "xnapper"
 
 # --- Internet / communication ---
@@ -62,7 +56,6 @@ cask "jdownloader"
 cask "moonlight"
 cask "obs"
 cask "plex"
-cask "spotify"
 cask "steam"
 
 # --- System tools ---
@@ -70,7 +63,6 @@ cask "balenaetcher"
 cask "macfuse"
 cask "mountmate"
 cask "neardrop"
-cask "wispr-flow"
 
 # --- Misc ---
 cask "autofirma"
@@ -83,7 +75,6 @@ cask "windows-app" # formerly microsoft-remote-desktop
 # cask "gpg-suite" # legacy GPG stack; commit signing uses SSH keys now
 
 # --- Mac App Store ---
-mas "Amphetamine", id: 937984704
 mas "Infuse", id: 1136220934
 mas "The Unarchiver", id: 425424353
 # mas "WireGuard", id: 1451685025

@@ -94,8 +94,12 @@ fi
 "$DOTFILES_DIR/macos/defaults.sh"
 
 if [[ "$PROFILE" == "work" ]]; then
-  echo "⏭️  Work profile: skipping SSH keys and personal gitconfig."
+  echo "⏭️  Work profile: skipping personal SSH auth keys."
   echo "    Once you know the company stack, run the relevant setup/ssh/*.sh by hand."
+  # Git identity (prompted) and commit signing apply to work machines too;
+  # identity must exist first so the signing key registers under it
+  "$DOTFILES_DIR/setup/git/setup.sh"
+  "$DOTFILES_DIR/setup/ssh/40-git-signing.sh"
 else
   "$DOTFILES_DIR/setup/setup.sh"
 fi

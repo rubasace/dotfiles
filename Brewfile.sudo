@@ -2,6 +2,4 @@
 # be installed from an interactive terminal so sudo can prompt: only
 # install.sh uses this file — the background sync agent never touches it,
 # because a failed unattended install rolls the app back and can leave it
-# deleted.
-
-cask "docker-desktop"
+# deleted. Currently empty.

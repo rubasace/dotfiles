@@ -39,6 +39,38 @@ brew uninstall --formula cask
 echo "▶ pinentry-mac only served the old autoupdate sudo popup"
 brew uninstall --formula pinentry-mac
 
+# --- 2026-08 Brewfile review: packages dropped from both profiles ---
+
+echo "▶ alt-tab and jordanbaird-ice are unused"
+brew uninstall --cask alt-tab
+brew uninstall --cask jordanbaird-ice
+
+echo "▶ firefox is unused"
+brew uninstall --cask firefox
+
+echo "▶ fontsmoothingadjuster is covered by BetterDisplay"
+brew uninstall --cask fontsmoothingadjuster
+
+echo "▶ cleanshot lost to xnapper; utm lost to parallels"
+brew uninstall --cask cleanshot
+brew uninstall --cask utm
+
+echo "▶ docker-desktop dropped (NOTE: removes the app; local images/containers data stays under ~/Library)"
+brew uninstall --cask docker-desktop
+
+echo "▶ jmeter and poppler-qt5 are unused"
+brew uninstall --formula jmeter
+brew uninstall --formula poppler-qt5
+
+echo "▶ pandoc, qpdf and sevenzip are unused"
+brew uninstall --formula pandoc
+brew uninstall --formula qpdf
+brew uninstall --formula sevenzip
+
+echo "▶ rust toolchain is unused; python@3.13 is redundant with pyenv (skipped if another formula still needs it)"
+brew uninstall --formula rust
+brew uninstall --formula python@3.13
+
 echo "▶ Removing orphaned dependencies"
 brew autoremove
 

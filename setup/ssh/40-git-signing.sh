@@ -23,12 +23,19 @@ elif can_create_keys; then
 fi
 
 # Signing itself is configured in config/.gitconfig (linked to ~/.gitconfig);
-# here we only register the public key so signatures verify locally too.
+# here we only register the public key so signatures verify locally too. The
+# principal and signers file come from the effective git config, so work
+# machines register their corporate identity in their machine-local file
+# instead of the repo-managed one.
 if [[ -f "$SIGN_KEY.pub" ]]; then
   info "Registering signing key in allowed_signers"
-  SIGNERS_FILE="$USER_HOME/.config/git/allowed_signers"
+  PRINCIPAL="$(git config --global --get user.email || true)"
+  [[ -z "$PRINCIPAL" ]] && PRINCIPAL="ruben.pahino.verdugo@gmail.com"
+  SIGNERS_FILE="$(git config --global --get gpg.ssh.allowedSignersFile || true)"
+  [[ -z "$SIGNERS_FILE" ]] && SIGNERS_FILE="$USER_HOME/.config/git/allowed_signers"
+  SIGNERS_FILE="${SIGNERS_FILE/#\~/$USER_HOME}"
   mkdir -p "$(dirname "$SIGNERS_FILE")"
-  SIGNER_LINE="ruben.pahino.verdugo@gmail.com $(cut -d' ' -f1,2 "$SIGN_KEY.pub")"
+  SIGNER_LINE="$PRINCIPAL $(cut -d' ' -f1,2 "$SIGN_KEY.pub")"
   grep -qxF "$SIGNER_LINE" "$SIGNERS_FILE" 2>/dev/null || echo "$SIGNER_LINE" >> "$SIGNERS_FILE"
 fi
 
