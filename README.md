@@ -21,9 +21,10 @@ GitHub/GitLab/servers and sign into the App Store for `mas` apps.
 
 ## Machine profiles
 
-Every machine is either `personal` (everything) or `work` (base Brewfiles
-only; no personal SSH auth keys — run individual `setup/ssh/*.sh` scripts as
-needed). Both profiles share the repo gitconfig and sign commits: identity
+Every machine is either `personal` or `work`; each installs the base
+Brewfiles plus its own overlay (`Brewfile.personal` / `Brewfile.work`). The
+`work` profile gets no personal SSH auth keys — run individual
+`setup/ssh/*.sh` scripts as needed. Both profiles share the repo gitconfig and sign commits: identity
 comes from `~/.gitconfig.local`, written automatically with the personal
 identity on `personal` and prompted (corporate name/email) on `work`. The
 choice is asked once by `install.sh` (or passed as `./install.sh
@@ -36,6 +37,7 @@ agent honours too.
 |---|---|
 | `Brewfile` | Base profile: formulae/casks for every machine, work included |
 | `Brewfile.personal` | Personal overlay: homelab, media, licensed and account-tied apps |
+| `Brewfile.work` | Work overlay: company-only tooling (Slack, …) |
 | `Brewfile.sudo`, `Brewfile.personal.sudo` | Casks needing a privileged installer; only installed interactively by `install.sh` |
 | `config/` | Files linked into `$HOME` (top-level files) and `~/.config/` (directories) |
 | `config/iterm2/` | iTerm2 settings; the app reads/writes them here directly |

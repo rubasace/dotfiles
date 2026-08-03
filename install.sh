@@ -64,11 +64,11 @@ for tap in sdkman/tap grishka/grishka; do
   brew tap "$tap" 2>/dev/null || true
   brew trust "$tap" 2>/dev/null || true
 done
-brewfiles=("$DOTFILES_DIR/Brewfile")
+# Each profile stacks its overlay on top of the base Brewfile
+brewfiles=("$DOTFILES_DIR/Brewfile" "$DOTFILES_DIR/Brewfile.$PROFILE")
 sudo_brewfiles=("$DOTFILES_DIR/Brewfile.sudo")
-if [[ "$PROFILE" == "personal" ]]; then
-  brewfiles+=("$DOTFILES_DIR/Brewfile.personal")
-  sudo_brewfiles+=("$DOTFILES_DIR/Brewfile.personal.sudo")
+if [[ -f "$DOTFILES_DIR/Brewfile.$PROFILE.sudo" ]]; then
+  sudo_brewfiles+=("$DOTFILES_DIR/Brewfile.$PROFILE.sudo")
 fi
 
 # A single broken cask must not abort the whole bootstrap: report and go on,

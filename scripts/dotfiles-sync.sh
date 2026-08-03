@@ -35,7 +35,7 @@ fi
 
 PROFILE="$(cat "$HOME/.dotfiles-profile" 2>/dev/null || echo personal)"
 brewfiles=(Brewfile)
-[[ "$PROFILE" == "personal" ]] && brewfiles+=(Brewfile.personal)
+[[ -f "Brewfile.$PROFILE" ]] && brewfiles+=("Brewfile.$PROFILE")
 
 # mas entries are excluded: mas can't detect installed apps while Spotlight
 # indexing is disabled, so it would retry (and fail) on every run. App Store
