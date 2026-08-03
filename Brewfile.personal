@@ -42,6 +42,7 @@ cask "opencode-desktop"
 
 # --- Desktop environment ---
 cask "logi-options+"
+cask "obsidian"
 cask "xnapper"
 
 # --- Internet / communication ---

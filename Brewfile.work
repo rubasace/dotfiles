@@ -1,9 +1,12 @@
 # Work-profile overlay: company-only tooling. Never installed on personal
 # machines.
 
-cask "slack"
+cask "gcloud-cli"
+
+# slack comes preinstalled via the company MDM profile
+# cask "slack"
 
 # Candidates once the company stack is known:
 # cask "zoom"
 # cask "microsoft-teams"
-# container runtime (colima / licensed docker-desktop) and cloud CLI (awscli / gcloud-cli)
+# container runtime (colima / licensed docker-desktop)

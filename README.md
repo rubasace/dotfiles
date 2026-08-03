@@ -37,7 +37,7 @@ agent honours too.
 |---|---|
 | `Brewfile` | Base profile: formulae/casks for every machine, work included |
 | `Brewfile.personal` | Personal overlay: homelab, media, licensed and account-tied apps |
-| `Brewfile.work` | Work overlay: company-only tooling (Slack, …) |
+| `Brewfile.work` | Work overlay: company-only tooling |
 | `Brewfile.sudo`, `Brewfile.personal.sudo` | Casks needing a privileged installer; only installed interactively by `install.sh` |
 | `config/` | Files linked into `$HOME` (top-level files) and `~/.config/` (directories) |
 | `config/iterm2/` | iTerm2 settings; the app reads/writes them here directly |
