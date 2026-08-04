@@ -1,6 +1,7 @@
-# Base profile: tools that belong on every machine, including work ones.
-# Profile-specific software lives in the Brewfile.personal / Brewfile.work
-# overlays; casks that need a privileged installer live in the *.sudo variants.
+# Base profile: tools that belong on every machine, including company ones.
+# Profile-specific software lives in the per-profile overlays
+# (Brewfile.personal, Brewfile.edreams, ...); casks that need a privileged
+# installer live in the *.sudo variants.
 # Restore with: install.sh (combines the right files for the machine profile)
 
 tap "sdkman/tap"

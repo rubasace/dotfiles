@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_CONFIG_DIR="${SCRIPT_DIR}/config"
 
 # Top-level files in config/ are linked into $HOME. The gitconfig is shared
-# by both profiles: identity comes from ~/.gitconfig.local (setup/git).
+# by every profile: identity comes from ~/.gitconfig.local (setup/git).
 while IFS= read -r -d '' file; do
   ln -sf "$file" "$HOME/$(basename "$file")"
 done < <(find "$REPO_CONFIG_DIR" -mindepth 1 -maxdepth 1 -type f -print0)

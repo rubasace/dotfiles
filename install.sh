@@ -6,9 +6,19 @@ PROFILE_MARKER="$HOME/.dotfiles-profile"
 
 echo "🚀 Bootstrapping machine from dotfiles"
 
-# Machine profile: 'personal' installs everything; 'work' sticks to the base
-# Brewfiles and skips SSH keys and the personal gitconfig. Remembered per
-# machine in ~/.dotfiles-profile so reruns and the sync agent agree.
+# Machine profile: 'personal' installs everything; any other profile (e.g.
+# 'edreams') is a company machine — base Brewfiles plus its own
+# Brewfile.<profile> overlay, and no personal keys or identity. Profiles are
+# discovered from the overlay files, so onboarding a new company is just
+# dropping a Brewfile.<name>. Remembered per machine in ~/.dotfiles-profile
+# so reruns and the sync agent agree.
+profiles=(personal)
+for overlay in "$DOTFILES_DIR"/Brewfile.*; do
+  name="${overlay##*/Brewfile.}"
+  if [[ "$name" != "personal" && "$name" != "sudo" && "$name" != *.sudo ]]; then
+    profiles+=("$name")
+  fi
+done
 PROFILE="${1:-}"
 PROFILE="${PROFILE#--profile=}"
 if [[ -z "$PROFILE" ]]; then
@@ -16,17 +26,20 @@ if [[ -z "$PROFILE" ]]; then
     PROFILE="$(cat "$PROFILE_MARKER")"
   elif [[ -t 0 ]]; then
     echo "Machine profile:"
-    select PROFILE in personal work; do
+    select PROFILE in "${profiles[@]}"; do
       [[ -n "$PROFILE" ]] && break
     done
   else
     PROFILE="personal"
   fi
 fi
-if [[ "$PROFILE" != "personal" && "$PROFILE" != "work" ]]; then
-  echo "Invalid profile '$PROFILE' (expected personal or work)" >&2
-  exit 1
-fi
+case " ${profiles[*]} " in
+  *" $PROFILE "*) ;;
+  *)
+    echo "Invalid profile '$PROFILE' (expected one of: ${profiles[*]})" >&2
+    exit 1
+    ;;
+esac
 echo "$PROFILE" > "$PROFILE_MARKER"
 echo "▶ Machine profile: $PROFILE"
 
@@ -93,15 +106,17 @@ fi
 "$DOTFILES_DIR/link.sh"
 "$DOTFILES_DIR/macos/defaults.sh"
 
-if [[ "$PROFILE" == "work" ]]; then
-  echo "⏭️  Work profile: skipping personal SSH auth keys."
-  echo "    Once you know the company stack, run the relevant setup/ssh/*.sh by hand."
-  # Git identity (prompted) and commit signing apply to work machines too;
-  # identity must exist first so the signing key registers under it
-  "$DOTFILES_DIR/setup/git/setup.sh"
-  "$DOTFILES_DIR/setup/ssh/40-git-signing.sh"
-else
+if [[ "$PROFILE" == "personal" ]]; then
   "$DOTFILES_DIR/setup/setup.sh"
+else
+  echo "⏭️  $PROFILE profile: skipping personal SSH auth keys (gitlab, homelab)."
+  # Company machines still get git identity (prompted), a GitHub auth key and
+  # commit signing; identity goes first so the signing key registers under it
+  "$DOTFILES_DIR/setup/git/setup.sh"
+  "$DOTFILES_DIR/setup/ssh/00-config.sh"
+  "$DOTFILES_DIR/setup/ssh/10-github.sh"
+  "$DOTFILES_DIR/setup/ssh/40-git-signing.sh"
+  "$DOTFILES_DIR/setup/ssh/90-startup-load.sh"
 fi
 
 "$DOTFILES_DIR/agents/install-agents.sh"
