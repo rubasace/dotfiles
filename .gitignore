@@ -3,6 +3,7 @@
 !.gitignore
 !README.md
 !Brewfile*
+!bootstrap.sh
 !install.sh
 !link.sh
 !config

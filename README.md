@@ -1,17 +1,28 @@
 # dotfiles (AI generated temporarily)
 
-Full machine configuration as code. Goal: restoring a Mac from zero is
-`clone + ./install.sh`, and any later change to this repo propagates to the
-machine automatically.
+Full machine configuration as code. Goal: restoring a Mac from zero is one
+command, and any later change to this repo propagates to the machine
+automatically.
 
 ## Fresh machine bootstrap
 
+One command on a blank Mac — no git, Xcode CLT, or Homebrew required:
+
 ```bash
-xcode-select --install   # if git is not available yet
-git clone https://github.com/rubasace/dotfiles.git ~/workspace/personal/dotfiles
-cd ~/workspace/personal/dotfiles
-./install.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rubasace/dotfiles/master/bootstrap.sh)"
 ```
+
+Install flags go after `--` (e.g. the machine profile):
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rubasace/dotfiles/master/bootstrap.sh)" -- --profile=edreams
+```
+
+`bootstrap.sh` installs Homebrew if missing (its installer brings the Xcode
+Command Line Tools, and with them git), clones this repo into
+`~/workspace/personal/dotfiles` (override with `$DOTFILES_DIR`), and hands
+off to `install.sh`. On an already-cloned machine, running `./install.sh`
+directly is equivalent.
 
 `install.sh` is idempotent: it installs Homebrew, everything in the Brewfiles
 (adopting apps that were installed manually), npm globals, links all configs,
