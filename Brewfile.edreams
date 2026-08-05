@@ -7,10 +7,7 @@ brew "docker" # CLI client for the colima runtime
 brew "docker-compose" # `docker compose` plugin; wired up by install.sh
 
 cask "gcloud-cli"
+cask "cursor"
 
 # slack comes preinstalled via the company MDM profile
 # cask "slack"
-
-# Candidates once the company stack is known:
-# cask "zoom"
-# cask "microsoft-teams"
