@@ -13,10 +13,8 @@ info "Setting up GitHub SSH keys"
 if key_exists "$AUTH_KEY"; then
   warn "GitHub SSH auth key already exists, skipping"
 elif can_create_keys; then
-  info "Creating GitHub SSH auth key"
-  ssh-keygen -t ed25519 -f "$AUTH_KEY" -C "ruben@github"
-  info "Adding GitHub SSH key to agent with Keychain"
-  ssh-add --apple-use-keychain "$AUTH_KEY"
+  info "Creating GitHub SSH auth key (added to agent + Keychain)"
+  create_key_with_keychain "$AUTH_KEY" "ruben@github"
   echo ""
   info "GitHub SSH public key (add to GitHub):"
   cat "$AUTH_KEY.pub"

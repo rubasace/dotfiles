@@ -12,10 +12,8 @@ info "Setting up Git commit signing (SSH)"
 if key_exists "$SIGN_KEY"; then
   warn "Git signing key already exists, skipping"
 elif can_create_keys; then
-  info "Creating SSH key for Git commit signing"
-  ssh-keygen -t ed25519 -f "$SIGN_KEY" -C "ruben@git-signing"
-  info "Adding Git signing key to agent with Keychain"
-  ssh-add --apple-use-keychain "$SIGN_KEY"
+  info "Creating SSH key for Git commit signing (added to agent + Keychain)"
+  create_key_with_keychain "$SIGN_KEY" "ruben@git-signing"
   echo ""
   info "Git signing SSH public key (use for signing key in Git services):"
   cat "$SIGN_KEY.pub"

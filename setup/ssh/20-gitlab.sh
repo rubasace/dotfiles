@@ -12,10 +12,8 @@ info "Setting up GitLab SSH keys"
 if key_exists "$AUTH_KEY"; then
   warn "GitLab SSH auth key already exists, skipping"
 elif can_create_keys; then
-  info "Creating GitLab SSH auth key"
-  ssh-keygen -t ed25519 -f "$AUTH_KEY" -C "ruben@gitlab"
-  info "Adding GitLab SSH key to agent with Keychain"
-  ssh-add --apple-use-keychain "$AUTH_KEY"
+  info "Creating GitLab SSH auth key (added to agent + Keychain)"
+  create_key_with_keychain "$AUTH_KEY" "ruben@gitlab"
   echo ""
   info "GitLab SSH public key (add to GitLab):"
   cat "$AUTH_KEY.pub"
