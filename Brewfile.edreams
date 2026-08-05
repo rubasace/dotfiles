@@ -8,6 +8,7 @@ brew "docker-compose" # `docker compose` plugin; wired up by install.sh
 
 cask "gcloud-cli"
 cask "cursor"
+cask "dbeaver-community"
 
 # slack comes preinstalled via the company MDM profile
 # cask "slack"
