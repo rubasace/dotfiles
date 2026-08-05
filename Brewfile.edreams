@@ -4,6 +4,7 @@
 # Containers without Docker Desktop (no company license needed)
 brew "colima"
 brew "docker" # CLI client for the colima runtime
+brew "docker-compose" # `docker compose` plugin; wired up by install.sh
 
 cask "gcloud-cli"
 

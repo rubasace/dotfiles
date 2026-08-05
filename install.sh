@@ -94,6 +94,22 @@ cat "${brewfiles[@]}" | HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file=
 cat "${sudo_brewfiles[@]}" | HOMEBREW_CASK_OPTS="--adopt" brew bundle install --file=- --no-upgrade \
   || echo "⚠️  Some Brewfile.sudo entries failed — check output above"
 
+# Colima (where the profile ships it) runs as a launchd service, so docker
+# works after reboots without a manual `colima start`
+if command -v colima >/dev/null 2>&1; then
+  echo "▶ Starting colima as a service"
+  brew services start colima || true
+fi
+
+# Brew installs docker CLI plugins (compose, ...) under its own prefix;
+# expose them so `docker compose` resolves. Left alone if ~/.docker/cli-plugins
+# is a real directory owned by some other install.
+docker_plugins="$(brew --prefix)/lib/docker/cli-plugins"
+if [[ -d "$docker_plugins" && ( ! -e "$HOME/.docker/cli-plugins" || -L "$HOME/.docker/cli-plugins" ) ]]; then
+  mkdir -p "$HOME/.docker"
+  ln -sfn "$docker_plugins" "$HOME/.docker/cli-plugins"
+fi
+
 echo "▶ Installing npm globals"
 if command -v npm >/dev/null 2>&1; then
   for pkg in @anthropic-ai/claude-code @openai/codex; do
