@@ -95,8 +95,16 @@ cat "${sudo_brewfiles[@]}" | HOMEBREW_CASK_OPTS="--adopt" brew bundle install --
   || echo "⚠️  Some Brewfile.sudo entries failed — check output above"
 
 # Colima (where the profile ships it) runs as a launchd service, so docker
-# works after reboots without a manual `colima start`
+# works after reboots without a manual `colima start`. VM specs are fixed on
+# first creation (colima persists them per profile and every later start
+# reuses them); they go to the default profile on purpose — the brew service
+# and DOCKER_HOST both point there, not to a named profile.
 if command -v colima >/dev/null 2>&1; then
+  if [[ ! -f "$HOME/.colima/default/colima.yaml" ]]; then
+    echo "▶ Creating colima VM (4 CPUs, 8GiB RAM, 60GiB disk, vz + Rosetta)"
+    colima start --cpu 4 --memory 8 --disk 60 --vm-type=vz --vz-rosetta
+    colima stop
+  fi
   echo "▶ Starting colima as a service"
   brew services start colima || true
 fi

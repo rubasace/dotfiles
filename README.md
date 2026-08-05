@@ -60,6 +60,9 @@ which the sync agent honours too.
   you run `brewup` interactively.
 - **`local.addssh`** (on login + hourly): loads SSH keys into the agent from
   the Keychain.
+- **colima** (brew service, only where the profile installs it): container
+  runtime kept running across reboots; the first `install.sh` run creates the
+  VM with the pinned specs (4 CPUs, 8GiB, 60GiB, vz + Rosetta).
 
 Logs: `~/Library/Logs/dotfiles-sync.log` and `~/Library/Logs/brew-maintenance.log`.
 
