@@ -1,12 +1,14 @@
 # Personal-profile overlay: homelab, media, licensed apps and anything tied
 # to personal accounts. Never installed on work machines.
 
+tap "fluxcd/tap" # flux
 tap "grishka/grishka" # neardrop
 
 # --- Homelab / infra ---
 brew "age"
 brew "cloud-sql-proxy"
 brew "drone-cli"
+brew "fluxcd/tap/flux"
 brew "kubeseal"
 brew "opentofu"
 brew "sops"

@@ -73,7 +73,7 @@ softwareupdate --install-rosetta --agree-to-license 2>/dev/null || true
 
 echo "▶ Installing packages from Brewfile"
 # Brew >= 6 refuses formulae from third-party taps unless explicitly trusted
-for tap in sdkman/tap grishka/grishka; do
+for tap in sdkman/tap grishka/grishka fluxcd/tap; do
   brew tap "$tap" 2>/dev/null || true
   brew trust "$tap" 2>/dev/null || true
 done

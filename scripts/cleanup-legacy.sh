@@ -75,7 +75,7 @@ echo "▶ Removing orphaned dependencies"
 brew autoremove
 
 echo "▶ Removing taps with nothing installed from them (ngrok cask now lives in homebrew/cask)"
-brew untap fluxcd/tap gromgit/fuse jeffreywildman/virt-manager lihaoyun6/tap siderolabs/tap anomalyco/tap ngrok/ngrok 2>/dev/null
+brew untap gromgit/fuse jeffreywildman/virt-manager lihaoyun6/tap siderolabs/tap anomalyco/tap ngrok/ngrok 2>/dev/null
 
 cat <<'EOF'
 
