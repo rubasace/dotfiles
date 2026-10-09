@@ -67,8 +67,7 @@ brew uninstall --formula pandoc
 brew uninstall --formula qpdf
 brew uninstall --formula sevenzip
 
-echo "▶ rust toolchain is unused; python@3.13 is redundant with pyenv (skipped if another formula still needs it)"
-brew uninstall --formula rust
+echo "▶ python@3.13 is redundant with pyenv (skipped if another formula still needs it)"
 brew uninstall --formula python@3.13
 
 echo "▶ Removing orphaned dependencies"
