@@ -27,6 +27,12 @@ brew "nmap"
 brew "squashfs"
 brew "tesseract-lang"
 
+# --- Dev toolchains ---
+# Rust (cargo, rustc) and CMake: the Sidevoice playground app compiles
+# sidevoice-engine natively on this machine (whisper.cpp builds with CMake).
+brew "cmake"
+brew "rust"
+
 # --- Dev apps ---
 # android-platform-tools: disabled 2026-08 — upstream checksum mismatch
 # (Google republished the zip). Re-enable when the cask is fixed; meanwhile

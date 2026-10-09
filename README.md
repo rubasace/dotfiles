@@ -101,8 +101,6 @@ stay one-per-provider.
 - Casks whose installer needs root (private-internet-access, sf-symbols)
   install fine from an interactive `./install.sh` (terminal sudo prompt) but
   are skipped by the background sync agent.
-- `scripts/cleanup-legacy.sh` removes packages that predate the Brewfile
-  (duplicates, dead apps). Review and run it once per already-provisioned machine.
 
 ## Why not Nix?
 
